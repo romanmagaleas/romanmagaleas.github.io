@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Герои Приднестровья</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Военные цвета и переменные */
+    :root {
+      --military-dark: #1a2639;
+      --military-medium: #2d4263;
+      --military-light: #3e5c76;
+      --military-accent: #b22234;
+      --military-gold: #d4af37;
+      --text-light: #f0f0f0;
+      --text-dark: #202020;
+      --shadow: rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+      background-color: var(--military-dark);
+      background-image: url('https://www.transparenttextures.com/patterns/subtle-dark-vertical.png');
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background: linear-gradient(to bottom, var(--military-accent), var(--military-dark));
+      color: var(--text-light);
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-shadow: 0 4px 12px var(--shadow);
+      border-bottom: 3px solid var(--military-gold);
+    }
+
+    /* Георгиевская лента в шапке */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -10%;
+      width: 120%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        #f8ca00 0px,
+        #f8ca00 10px,
+        #000000 10px,
+        #000000 20px
+      );
+      opacity: 0.15;
+      transform: rotate(-5deg);
+      z-index: 1;
+      animation: ribbonWave 60s infinite linear;
+    }
+
+    @keyframes ribbonWave {
+      0% {
+        transform: rotate(-5deg) translateY(0);
+      }
+      50% {
+        transform: rotate(-2deg) translateY(-20px);
+      }
+      100% {
+        transform: rotate(-5deg) translateY(0);
+      }
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3.5rem;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 2px 2px 8px var(--shadow);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    header h1::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background-color: var(--military-gold);
+      margin: 15px auto 0;
+    }
+
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 95%;
+      max-width: 1400px;
+      margin: 40px 0;
+      gap: 40px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 25px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card {
+      background: var(--military-light);
+      border-radius: 0;
+      box-shadow: 0 8px 16px var(--shadow);
+      width: calc(33.333% - 20px);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      border: 1px solid var(--military-gold);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: var(--military-accent);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px var(--shadow);
+    }
+
+    .card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(30%);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .info {
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+      color: var(--text-light);
+      padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1rem;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 1px;
+      border-top: 2px solid var(--military-gold);
+    }
+
+    .card:hover .info {
+      transform: translateY(0);
+    }
+
+    .info p {
+      margin: 0;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+
+    .side-bar {
+      background-color: var(--military-medium);
+      padding: 30px;
+      border-radius: 0;
+      box-shadow: 0 8px 20px var(--shadow);
+      width: 30%;
+      min-width: 300px;
+      color: var(--text-light);
+      border-left: 4px solid var(--military-accent);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .side-bar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .side-bar::-webkit-scrollbar-track {
+      background: var(--military-dark);
+    }
+
+    .side-bar::-webkit-scrollbar-thumb {
+      background: var(--military-accent);
+      border-radius: 0;
+    }
+
+    .side-bar h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 0 0 30px;
+      font-family: 'Arial Black', 'Arial', sans-serif;
+      color: var(--military-gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding-top: 10px;
+      /* Улучшенный контур текста */
+      text-shadow: 
+        -1px -1px 2px var(--military-dark),
+        1px -1px 2px var(--military-dark),
+        -1px 1px 2px var(--military-dark),
+        1px 1px 2px var(--military-dark),
+        0 0 8px rgba(0, 0, 0, 0.7);
+      /* Добавляем эффект размытой границы вокруг элемента */
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+      /* Добавляем слегка затемненный фон для лучшего контраста */
+      background-color: rgba(45, 66, 99, 0.95);
+    }
+
+    .side-bar h3::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: var(--military-accent);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .fact {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      font-family: 'Arial', sans-serif;
+      border-left: 3px solid var(--military-accent);
+      padding: 5px 0 5px 15px;
+      transition: all 0.3s ease;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .fact:hover {
+      transform: translateX(5px);
+      border-left-width: 5px;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .fact strong {
+      color: var(--military-gold);
+      font-size: 1.1em;
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .side-bar p {
+      line-height: 1.6;
+      color: var(--text-light);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* Военные декоративные элементы */
+    .military-stars {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: var(--military-gold);
+      font-size: 24px;
+      display: flex;
+      gap: 5px;
+      z-index: 3;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+      padding: 15px;
+      color: var(--military-gold);
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--military-accent);
+      color: var(--text-light);
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    /* Планшеты */
+    @media (max-width: 992px) {
+      .main-content {
+        flex-direction: column;
+      }
+      
+      .side-bar {
+        width: 100%;
+        margin-bottom: 30px;
+        border-left: none;
+        border-top: 4px solid var(--military-accent);
+        max-height: 500px;
+      }
+      
+      .container {
+        width: 100%;
+      }
+      
+      .card {
+        width: calc(50% - 15px);
+      }
+      
+      header h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    /* Мобильные устройства */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .card {
+        width: 100%;
+      }
+      
+      .fact {
+        font-size: 1rem;
+      }
+      
+      .side-bar h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="military-stars">★ ★ ★</div>
+    <h1>Герои Приднестровья</h1>
+  </header>
+
+  <div class="main-content">
+    <!-- Блок с информацией о Великой Отечественной войне -->
+    <div class="side-bar">
+      <h3>Факты о Великой Отечественной войне</h3>
+      <div class="fact">
+        <strong>Первое сражение</strong>
+        <p>Первое крупное сражение Великой Отечественной войны произошло 22 июня 1941 года, когда началась операция "Барбаросса".</p>
+      </div>
+      <div class="fact">
+        <strong>Ленинградская блокада</strong>
+        <p>Блокада Ленинграда длилась 872 дня (с сентября 1941 по январь 1944), став одной из самых трагических страниц войны.</p>
+      </div>
+      <div class="fact">
+        <strong>Сталинградская битва</strong>
+        <p>Сталинградская битва, продолжавшаяся с августа 1942 по февраль 1943 года, считается одной из самых кровопролитных в истории.</p>
+      </div>
+      <div class="fact">
+        <strong>Танк Т-34</strong>
+        <p>Танк Т-34 стал символом советской бронетехники и был одним из самых успешных и эффективных танков Второй мировой войны.</p>
+      </div>
+      <div class="fact">
+        <strong>Ржевская битва</strong>
+        <p>Сражение за Ржев происходило с 1942 по 1943 годы. Это одно из самых кровопролитных сражений Великой Отечественной войны, в котором Советская армия потеряла более 1 миллиона человек.</p>
+      </div>
+      <div class="fact">
+        <strong>Знамя Победы</strong>
+        <p>Знамя Победы было водружено над Рейхстагом 30 апреля 1945 года, став символом победы над нацистской Германией.</p>
+      </div>
+      <div class="fact">
+        <strong>Операция "Багратион"</strong>
+        <p>Операция "Багратион" (23 июня — 29 августа 1944 года) была одной из крупнейших военных операций за всю историю. В результате была освобождена Белоруссия и значительная часть Прибалтики.</p>
+      </div>
+      <div class="fact">
+        <strong>Женщины на войне</strong>
+        <p>Около 800 000 женщин служили в рядах Красной Армии во время Великой Отечественной войны. Они были медсестрами, снайперами, пилотами и партизанами.</p>
+      </div>
+      <div class="fact">
+        <strong>Потери СССР</strong>
+        <p>СССР потерял около 27 миллионов человек во время войны, что составляет почти 14% от всего населения страны на тот момент.</p>
+      </div>
+      <div class="fact">
+        <strong>Дорога жизни</strong>
+        <p>"Дорога жизни" — транспортный путь через Ладожское озеро, который связывал блокадный Ленинград с остальной страной. По льду Ладожского озера было эвакуировано более 550 тысяч человек.</p>
+      </div>
+      <div class="fact">
+        <strong>Брестская крепость</strong>
+        <p>Оборона Брестской крепости продолжалась более месяца, несмотря на то, что по плану "Барбаросса" на её захват отводилось всего восемь часов.</p>
+      </div>
+      <div class="fact">
+        <strong>Партизанское движение</strong>
+        <p>На оккупированных территориях действовало более 6000 партизанских отрядов общей численностью свыше 1 миллиона человек.</p>
+      </div>
+      <div class="fact">
+        <strong>Битва за Кавказ</strong>
+        <p>Битва за Кавказ длилась с 25 июля 1942 по 9 октября 1943 года. Советские солдаты водрузили флаги на вершинах Эльбруса, сбросив оттуда нацистские флаги.</p>
+      </div>
+      <div class="fact">
+        <strong>Катюша</strong>
+        <p>Реактивная система залпового огня БМ-13, известная как "Катюша", стала легендарным оружием Великой Отечественной войны. Немцы называли её "сталинским органом" из-за характерного воя при запуске ракет.</p>
+      </div>
+      <div class="fact">
+        <strong>Курская дуга</strong>
+        <p>Танковое сражение под Прохоровкой в ходе Курской битвы стало крупнейшим в истории — в нём участвовало до 1200 танков и самоходных орудий с обеих сторон.</p>
+      </div>
+      <div class="fact">
+        <strong>Молодая гвардия</strong>
+        <p>Молодёжная подпольная антифашистская организация "Молодая гвардия" действовала в городе Краснодоне. Её участники были казнены фашистами в январе 1943 года.</p>
+      </div>
+      <div class="fact">
+        <strong>Полярные конвои</strong>
+        <p>Северные или полярные конвои — морские транспортные караваны союзников, доставлявшие грузы в СССР через северные моря в период с августа 1941 по май 1945 года.</p>
+      </div>
+      <div class="fact">
+        <strong>Битва за Днепр</strong>
+        <p>Во время битвы за Днепр осенью 1943 года звание Героя Советского Союза получили 2438 человек — это больше, чем за любую другую операцию Великой Отечественной войны.</p>
+      </div>
+      <div class="fact">
+        <strong>Малая земля</strong>
+        <p>"Малая земля" — плацдарм советских войск на западном побережье Цемесской бухты, удерживаемый 225 дней с февраля по сентябрь 1943 года.</p>
+      </div>
+      <div class="fact">
+        <strong>Парад 7 ноября 1941</strong>
+        <p>Парад на Красной площади 7 ноября 1941 года имел огромное значение для поднятия морального духа армии и населения. С парада войска уходили прямо на фронт.</p>
+      </div>
+    </div>
+
+    <!-- Основной контейнер с карточками -->
+    <div class="container">
+      <div class="card">
+        <div class="ribbon">Танкист</div>
+        <img src="https://avatars.mds.yandex.net/i?id=1ff7eb7f504ce721859f72c3773df1b79bd009a6-5255999-images-thumbs&n=13" alt="Бочковский">
+        <div class="card-title">В.А. Бочковский</div>
+        <div class="info">
+          <p>В.А.Бочковский, уроженец г.Тирасполь, капитан, танкист, Герой Советского Союза. Пять раз горел в танке, шесть раз был ранен. Генерал-лейтенант танковых войск.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Академик</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8%D0%BD%D0%BE%D0%B2%D0%B8%D1%87_%D0%A4%D1%91%D0%B4%D0%BE%D1%80%D0%BE%D0%B2_%28%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82%29.jpg" alt="Фёдоров">
+        <div class="card-title">Е.К. Фёдоров</div>
+        <div class="info">
+          <p>Евгений Константинович Фёдоров — академик, генерал-лейтенант инженерно-технической службы, Герой Советского Союза (1938).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Артиллерист</div>
+        <img src="https://pmr-news.ru/img/20250329/c00d5ffbe7d33143d6fd327bab7f4db1_o.jpg" alt="Щербинко">
+        <div class="card-title">П.А. Щербинко</div>
+        <div class="info">
+          <p>П.А.Щербинко, уроженец г.Тирасполь, подполковник, артиллерист, Герой Советского Союза за героизм в боях за Днепр.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Лейтенант</div>
+        <img src="https://warheroes.ru/content/images/photodocs/9919/original/e12029dcd4960f89fd919cd88e6c1703.jpg" alt="Жарчинский">
+        <div class="card-title">Ф.И. Жарчинский</div>
+        <div class="info">
+          <p>Ф.И.Жарчинский, уроженец с.Рашков, гвардии старший лейтенант, погиб при освобождении узников лагеря в Тройенбритцене.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Пулемётчик</div>
+        <img src="https://warheroes.ru/content/images/photodocs/291/original/be0a47bfe13c280dc34188a62a6d0e92.jpg" alt="Солтыс">
+        <div class="card-title">И.С. Солтыс</div>
+        <div class="info">
+          <p>Ион Сидорович Солтыс — пулемётчик, Герой Советского Союза, отличился в 1-м Украинском фронте.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Лётчик</div>
+        <img src="https://upload.wikimedia.org/wikipedia/ru/b/ba/%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B9_%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%D0%B8%D1%87_%D0%A7%D0%B5%D1%80%D0%BD%D0%B8%D0%B5%D0%BD%D0%BA%D0%BE.jpg" alt="Черниенко">
+        <div class="card-title">Г.Г. Черниенко</div>
+        <div class="info">
+          <p>Георгий Георгиевич Черниенко (1907-1982) – летчик-бомбардировщик. Одним из первых в ночь на 23 июня 1941-го нанес удар по румынскому порту Констанца.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Штурмовик</div>
+        <img src="https://sun9-20.userapi.com/impg/8n_Zgs87neT6bzwBBOlXfQmMBHain5KPWWt6dQ/wy1UtoNoT_I.jpg?size=560x800&quality=96&sign=05bf8ba9566dc9db0c9371922305df74&c_uniq_tag=OW9ztYtP1iMIKMp-5V59VgZCJMiFVPJbxQyyYdGA510&type=album" alt="Алферьев">
+        <div class="card-title">Н.С. Алферьев</div>
+        <div class="info">
+          <p>Алферьев Николай Семенович (1919-1980) – штурмовик. Совершил 185 успешных боевых вылетов на штурмовике Ил-2.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Партизан</div>
+        <img src="https://cdn.moypolk.ru/static/resize/w390/soldiers/photo/2015/04/29/3b3435465a34138cb8320e82715632b1.jpg" alt="Корчагин">
+        <div class="card-title">И.П. Корчагин</div>
+        <div class="info">
+          <p>Корчагин Иван Петрович (1906-1944) – командир партизанского отряда. Организовал диверсии на железных дорогах Белоруссии.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Разведчик</div>
+        <img src="https://cdn.moypolk.ru/static/resize/w390/soldiers/photo/2021/05/07/000d60e8381b0eee19510d31a31f3f3a.jpg" alt="Литвинов">
+        <div class="card-title">В.И. Литвинов</div>
+        <div class="info">
+          <p>Литвинов Василий Иванович (1910-1984) – разведчик, проникший в штаб немецкой армии под видом офицера вермахта.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Конструктор</div>
+        <img src="https://avatars.dzeninfra.ru/get-zen_doc/5233283/pub_6276ae01f680416ea3fd2ecc_62775f051ae7846cd2fa2fac/scale_1200" alt="Морозов">
+        <div class="card-title">А.А. Морозов</div>
+        <div class="info">
+          <p>Морозов Александр Александрович (1904-1979) – конструктор танков, создатель легендарного Т-34.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Сержант</div>
+        <img src="https://avatars.mds.yandex.net/i?id=bfefe5c7ebc0faf7cf8b8281a90a422d_l-8195016-images-thumbs&n=13" alt="Павлов">
+        <div class="card-title">Я.Ф. Павлов</div>
+        <div class="info">
+          <p>Павлов Яков Федотович (1917-1981) – командир группы, защищавшей "Дом Павлова" в Сталинграде в течение 58 дней.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ribbon">Генерал</div>
+        <img src="https://cdn.moypolk.ru/static/resize/w390/soldiers/photo/2016/05/06/6fb20a5e56d1c19df5d28977190adc0f.jpg" alt="Вершигора">
+        <div class="card-title">П.П. Вершигора</div>
+        <div class="info">
+          <p>Вершигора Пётр Петрович (1905-1963) – партизанский генерал. Участвовал в Карпатском рейде партизанского отряда Ковпака.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
